@@ -62,7 +62,7 @@ Find the reciprocal of age?
 
 
 Assign also new_age <- c(age, 0, age). What happens to new_age?
-(Your answer here)
+ew_age <- c(age, 0, age)
 
 
 d: Find the minimum and the maximum value of age.
