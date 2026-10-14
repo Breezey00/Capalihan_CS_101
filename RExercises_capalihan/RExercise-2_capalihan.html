@@ -390,6 +390,9 @@ b</h1>
 <p>Question #1: Run 17 / 5, 17 %% 5, and 17 %/% 5 side by side. In your
 own words, explain how these three results relate to each other
 mathematically.</p>
+<p>17 / 5 = 3.4 ,17 %% 5 = 2 ,17 %/% 5 = 3</p>
+<p>they relate in terms of specifying every result there is when doing
+division [quotient, remainder, and integer quotient respectively]</p>
 <ul>
 <li>17/5 returns a typical division of the actual quotient, 17 %% 5
 returns the remainder, while 17%/% returns the quotient without its
@@ -409,6 +412,152 @@ typeof(w) = logical typeof(v) = complex</p>
 </div>
 <div id="todo-use-class-to-check-the-class-of-each-of-x-y-z-w-v" class="section level1">
 <h1>TODO: Use class() to check the class of each of x, y, z, w, v</h1>
+<blockquote>
+<p>class(x) [1] “numeric” class(y) [1] “integer” class(z) [1]
+“character” class(w) [1] “logical” class(v) [1] “complex”</p>
+</blockquote>
+<p>Question #3): x &lt;- 42 and y &lt;- 42L look almost identical, but
+typeof(x) and typeof(y) give different answers. Explain the difference
+in your own words.</p>
+<pre><code>-typeof(x) returns double because numbers are treated as doubles by R         by default, while typeof(y) returns an integer because the &quot;L&quot; suffix in the   end is a recognized by C and R as a special marker indicating the &quot;long&quot; data   type.</code></pre>
+<p>Question #4: Is typeof() ever different from class() and from mode()
+for the same object? Look at your results above and explain any case
+where this happens (or, if you did not see one, explain what you would
+expect for a matrix or factor).</p>
+<blockquote>
+<p>mode (x) [1] “numeric” mode(y) [1] “numeric” mode(z) [1] “character”
+mode(w) [1] “logical” mode(v) [1] “complex”</p>
+</blockquote>
+<p>typeof is different to class and mode, t typeof is more specific than
+both. it returns integers as integers and double as a double, instead of
+a higher level generalization.</p>
+<p>Part C — Type Conversion</p>
+<p>num_string &lt;- “123” # TODO: Convert num_string to a numeric value
+using as.numeric() # Then check its type with typeof(), class(), and
+mode()</p>
+<p>as.numeric(num_string) typeof( num_string) class(num_string)
+mode(num_string)</p>
+</div>
+<div id="todo-convert-the-number-0-and-the-number-1-to-logical-using-as.logical" class="section level1">
+<h1>TODO: Convert the number 0 and the number 1 to logical using
+as.logical()</h1>
+</div>
+<div id="what-do-you-get" class="section level1">
+<h1>What do you get?</h1>
+<p>as.logical(0) as.logical(1)</p>
+<p>[1] FALSE &gt; as.logical(0) [1] FALSE &gt; as.logical(1) [1]
+TRUE</p>
+<p>bad_string &lt;- “hello123” # TODO: Try converting bad_string to
+numeric using as.numeric() # Run this chunk and observe the warning
+message and the result</p>
+<p>as.numeric(bad_string) [1] NA Warning message: NAs introduced by
+coercion</p>
+<p>Question #5: When you ran the conversion-fail chunk, R produced NA
+and a warning instead of stopping with an error.</p>
+<p>Why do you think R is designed to give a warning here rather than
+crashing the whole script?</p>
+<p>-so numeric variables could never be mistakes, or at least have it so
+that there is a smaller chance for error. As there are no numeric value
+seemingly assigned to characters, though I think there may be a way to
+tie them to numeric values. Though the warning is set likely to make
+sure that only well-planned exceptions get to be allowed, should they be
+given the trouble to have a work around.</p>
+<p>What are the risks of this behavior if you don’t read your warnings?
+-missing values in a data set, concatenations not turning out the way
+they are planned.</p>
+<p>Question #6: as.logical(0) and as.logical(1) convert to FALSE and
+TRUE.</p>
+<p>What do you think as.logical(2) and as.logical(-1)` will produce?</p>
+<p>2 = true -1 = false ~initially before I tested both immediately by
+instinct</p>
+<p>Test it, then explain the rule R seems to be following. (Your answer
+here)</p>
+<p>as.logical(2) as.logical(-1)</p>
+<p>both produce true, R seems to be following the rule of “if it’s not 0
+then it’s probably true, otherwise false.”</p>
+<p>Part D — Strings, paste(), and paste0()</p>
+<p>first_name &lt;- “Juan” last_name &lt;- “Dela Cruz”</p>
+</div>
+<div id="todo-print-first_name-and-last_name-using-print-andor-cat" class="section level1">
+<h1>TODO: Print first_name and last_name using print() and/or cat()</h1>
+<p>cat( first_name, last_name)</p>
+<p># TODO: Use paste() to combine first_name and last_name into a full
+name # TODO: Use paste0() to do the same, and compare the two
+results</p>
+<p>paste(first_name, last_name) paste0(first_name, last_name)</p>
+</div>
+<div id="todo-use-paste-with-the-argument-sep---to-join-first_name-and" class="section level1">
+<h1>TODO: Use paste() with the argument sep = “-” to join first_name
+and</h1>
+</div>
+<div id="last_name-with-a-dash-instead-of-a-space" class="section level1">
+<h1>last_name with a dash instead of a space</h1>
+<p>paste( first_name, last_name, sep = “-”)</p>
+<p>age &lt;- 21 # TODO: Use paste0() to build the sentence: # “Juan Dela
+Cruz is 21 years old.” by combining full_name, age, and text</p>
+<p>paste0(first_name, ” “,last_name,” “,”is”, ” ” , age, ” “,”years
+old”)</p>
+<p>Question #7: paste() and paste0() produced different results for the
+same two strings. Explain exactly why, referencing what each function
+does by default.</p>
+<p>paste() pastes the strings of every variable in between spaces,
+paste0() pastes 0 spaces in pasting in place the same strings.</p>
+<p>Question #8: In the strings-numbers chunk, you combined a character
+string with a numeric variable (age) using paste0() without first
+converting age to a string.</p>
+<p>Did this cause an error? Explain what paste0() does internally to
+make this work, and how it relates to the type conversions you practiced
+in Part C.</p>
+<p>there seems to be no error pasting age with paste0() and paste(). I
+guess it’s allowed by default to convert integers to string by default
+compared to the other way around.</p>
+<p>Part E — Critical Thinking Challenge</p>
+</div>
+<div id="todo-predict-then-test-what-is-the-result-of-5-5-in-r" class="section level1">
+<h1>TODO: Predict, then test: what is the result of “5” + 5 in R?</h1>
+</div>
+<div id="run-it-and-read-the-error-message-carefully." class="section level1">
+<h1>Run it and read the error message carefully.</h1>
+<p>Expectation: 10 Reality: Error in “5” + 5 : non-numeric argument to
+binary operator</p>
+</div>
+<div id="todo-now-fix-the-code-above-so-that-5-5-correctly-evaluates-to-10" class="section level1">
+<h1>TODO: Now fix the code above so that “5” + 5 correctly evaluates to
+10</h1>
+</div>
+<div id="using-an-appropriate-conversion-function." class="section level1">
+<h1>using an appropriate conversion function.</h1>
+<p>as.numeric(“5”) + 5</p>
+<p>Question #9: Some programming languages automatically convert “5” + 5
+into 10 without an error. R does not.</p>
+<p>Based on what you’ve learned about R’s data types in this lab, why do
+you think R requires an explicit conversion instead of guessing what the
+programmer meant?</p>
+<p>a.) so the programmer has extra reason to be careful with handling
+their dat b.) so every data input is managed and implemented as
+designed</p>
+<p>Question #10: Suppose a classmate writes a script that reads a column
+of “numbers” from a text file. The column looks numeric, but when they
+try sum() on it, R throws an error. Based on everything in this lab
+(types, typeof()/class()/mode(), conversion, warnings), write a short
+paragraph explaining what likely went wrong and the steps you’d take to
+diagnose and fix it.</p>
+<p>-if an error shows up some “numbers” aren’t really numbers but are
+numbers fashioned as strings.</p>
+<p>step 1: use typeof() on their vectors/variables step 2: if there are
+sets that are characters, use as.numeric on them step 3: redo the sum()
+process</p>
+<p>Conclusion In 3–4 sentences, summarize what you learned about how R
+handles different data types, and why understanding typeof()/class() and
+conversion functions matters before doing arithmetic or combining
+data.</p>
+<ul>
+<li>R is a bit picky when it comes to data, like if phyton was a 7 year
+old. R is a 5 year old - so you have to be extra specific. typeof() and
+class() and conversion matters as to make sure that the data you’ll be
+putting in the system is in the right shapes to fit in the hypothetical
+holes.</li>
+</ul>
 </div>
 
 
