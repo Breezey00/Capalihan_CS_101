@@ -44,6 +44,11 @@ knitr::opts_chunk$set(echo = TRUE)
 [1] 1024
 
 Question #1: Run 17 / 5, 17 %% 5, and 17 %/% 5 side by side. In your own words, explain how these three results relate to each other mathematically.
+ 17 / 5 = 3.4
+ ,17 %% 5 = 2
+ ,17 %/% 5 = 3
+ 
+they relate in terms of specifying every result there is when doing division [quotient, remainder, and integer quotient respectively]
 
 - 17/5 returns a typical division of the actual quotient, 17 %% 5 returns the remainder, while 17%/% returns the quotient without its decimal
 
@@ -67,6 +72,25 @@ typeof(w) = logical
 typeof(v) = complex
 
 # TODO: Use class() to check the class of each of x, y, z, w, v
+ 
+> class(x)
+[1] "numeric"
+> class(y)
+[1] "integer"
+> class(z)
+[1] "character"
+> class(w)
+[1] "logical"
+> class(v)
+[1] "complex"
+
+Question #3): x <- 42 and y <- 42L look almost identical, but typeof(x) and typeof(y) give different answers. Explain the difference in your own words.
+
+(Your answer here)
 
 
+
+Question #4: Is typeof() ever different from class() and from mode() for the same object? Look at your results above and explain any case where this happens (or, if you did not see one, explain what you would expect for a matrix or factor).
+
+(Your answer here)
  
