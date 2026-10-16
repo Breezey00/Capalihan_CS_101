@@ -681,15 +681,17 @@ append(inventory$in_stock, TRUE) [1] TRUE TRUE FALSE TRUE</p>
 <p>In challenge-1, you combined logical indexing on one vector
 (in_stock) to filter a different vector (item) inside the same list.
 Explain, step by step, why inventory<span class="math inline">\(item[inventory\)</span>in_stock] works even though
-item and in_stock are stored as separate elements of the list. - because
-the vector in the bracket is treated as the index that is being singled
-out from the items vector inside the “inventory” list. -Step1.
-inventory<span class="math inline">\(item specifies the
+item and in_stock are stored as separate elements of the list.</p>
+<ul>
+<li>because the vector in the bracket is treated as the index that is
+being singled out from the items vector inside the “inventory” list.
+-Step1. inventory<span class="math inline">\(item specifies the
 &quot;container&quot; we&#39;re looking in
    Step2. inventory\)</span>in_stock inside the brackets singles out the
 indexes that pass an argument(inventory$in_stock == TRUE) Step3. The
 indexes that were singled out are then used as filters for which items
-inside inventory will be called.</p>
+inside inventory will be called.</li>
+</ul>
 <p>Question #13:</p>
 <p>Suppose a classmate stores related data as three separate,
 unconnected vectors (item_names, item_prices, item_stock) instead of
@@ -708,10 +710,12 @@ out values from other vectors that they have a connection to.</p>
 <p>Conclusion In 3–4 sentences, summarize the key differences between
 vectors and lists in R, and explain when you would choose one data
 structure over the other.</p>
-<p>vectors are one dimensional datasets of one data type that travels
+<ul>
+<li>vectors are one dimensional datasets of one data type that travels
 linear, though it can be presented in parallels. While lists are a set
 of multiple vectors that have their values relate to each other through
-indexes.</p>
+indexes.</li>
+</ul>
 <p>Vectors are useful if you want to twist and turn one particular list
 and you don’t really need the complexity, while lists are pretty good if
 you want to mash, reshape and reorganize multiple vectors with each
