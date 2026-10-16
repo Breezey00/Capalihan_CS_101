@@ -341,31 +341,42 @@ inventory <- list(
 # TODO: Using what you learned in Parts B and D, print only the items
 # (from inventory$item) that are currently in stock (in_stock == TRUE)
 
-Filter(function(i) {all(i inventory[in_stock == TRUE] ) } inventory$item )
+  inventory$item[inventory$in_stock == TRUE]
+  [1] "Notebook" "Pen" 
 
-inventory["in_stock"]
+
 # TODO: A new product "Ruler" priced at 15.00 and in stock (TRUE) needs
 # to be added to inventory. Use append() to add "Ruler" to
 # inventory$item, 15.00 to inventory$price, and TRUE to inventory$in_stock.
 # (You will need three separate append() calls, one per vector.)
 
-
+   append(inventory$item, "Ruler")
+   [1] "Notebook" "Pen"      "Eraser"   "Ruler"   
+   append(inventory$price, 15.00)
+   [1] 25.5 10.0  5.0 15.0
+   append(inventory$in_stock, TRUE)
+   [1]  TRUE  TRUE FALSE  TRUE
 
 Question #12:
 
 In challenge-1, you combined logical indexing on one vector (in_stock) to filter a different vector (item) inside the same list. Explain, step by step, why inventory$item[inventory$in_stock] works even though item and in_stock are stored as separate elements of the list.
-(Your answer here)
-
+  - because the vector in the bracket is treated as the index that is being singled out from the items vector inside the "inventory" list.
+  -Step1. inventory$item specifies the "container" we're looking in
+   Step2. inventory$in_stock inside the brackets singles out the indexes that pass an argument(inventory$in_stock == TRUE)
+   Step3. The indexes that were singled out are then used as filters for which items inside inventory will be called.
 
 Question #13:
 
 Suppose a classmate stores related data as three separate, unconnected vectors (item_names, item_prices, item_stock) instead of grouping them into one list like inventory. What risks or bugs could this create as the dataset grows or gets reordered? Argue for or against using a list (or, later, a data frame) instead of separate vectors.
-(Your answer here)
+
+  -Though the thought process is simpler in just using vectors, the vector set will also end up remaining as simple recall. In other words, a called vector only shows that one list (example only the data in item_names), but it doesn't show the logical connection to the other data sets, being that the indexes of a vector isn't "bound" to the indexes of another vector, and in that their values don't have a solid logical connection.
+  A list on the other hand would allow for different types of arrays with different data types and still allow them to single out values from other vectors that they have a connection to.
 
 
 Conclusion
 In 3–4 sentences, summarize the key differences between vectors and lists in R, and explain when you would choose one data structure over the other.
 
-(Your answer here)
-
+  vectors are one dimensional datasets of one data type that travels linear, though it can be presented in parallels. While lists are a set of multiple vectors that have their values relate to each other through indexes. 
+  
+  Vectors are useful if you want to twist and turn one particular list and you don't really need the complexity, while lists are pretty good if you want to mash, reshape and reorganize multiple vectors with each other without messing up their structure as you check for their relationships.
 
