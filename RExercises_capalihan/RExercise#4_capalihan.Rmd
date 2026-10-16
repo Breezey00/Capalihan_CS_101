@@ -198,6 +198,6 @@ Add 4 additional vegetables after index 5. What is the result?
 How many datapoints does your vegetable list have?
 
   length(vegetables)
-  16
+  test
   
   
