@@ -238,12 +238,12 @@ fruits <- c("apple", "banana", "cherry")
 
 # TODO: Use append() to add "date" to the end of fruits
 
-  append(fruits, "date")
+  fruits <- append(fruits, "date")
 
 # TODO: Use append() with the "after" argument to insert "kiwi" between
 # "apple" and "banana" (i.e., after position 1)
 fruits
-  append(fruits, "kiwi", after = 1)
+  fruits <- append(fruits, "kiwi", after = 1)
 
 Question #8:
 
@@ -283,15 +283,15 @@ Part D — Lists: Creating and Subsetting
 # student["grades"] -- then check its type with class()
 
   student["grades"]
-  class(grades)
+  class(student["grades"])
   - [1] "list"
   
 # TODO: Access the "grades" element of student using double brackets
 # student[["grades"]] -- then check its type with class()
 
   student [["grades"]]
-  class("grades")
-  - [1] "character"
+  class(student[["grades"]])
+  - [1] "numeric"
 
 # TODO: Access the "name" element of student using the $ operator
 # student$name
@@ -350,11 +350,11 @@ inventory <- list(
 # inventory$item, 15.00 to inventory$price, and TRUE to inventory$in_stock.
 # (You will need three separate append() calls, one per vector.)
 
-   append(inventory$item, "Ruler")
+  inventory$item <- append(inventory$item, "Ruler")
    [1] "Notebook" "Pen"      "Eraser"   "Ruler"   
-   append(inventory$price, 15.00)
+  inventory$item <- append(inventory$price, 15.00)
    [1] 25.5 10.0  5.0 15.0
-   append(inventory$in_stock, TRUE)
+  inventory$item <-append(inventory$in_stock, TRUE)
    [1]  TRUE  TRUE FALSE  TRUE
 
 Question #12:
