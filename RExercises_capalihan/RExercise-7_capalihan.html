@@ -475,30 +475,30 @@ dim (survey)</code></pre>
 <li>20 rows, 6 columns</li>
 </ul>
 <pre class="r"><code>#c. Create factors for Sex, Father&#39;s Occupation and Types of Houses
- Sex &lt;- factor(
+ SexR &lt;- factor(
    Sex, 
    levels = c(1, 2),
    labels = c(&quot;Male&quot;,&quot;Female&quot;)
  )
-Sex</code></pre>
+SexR</code></pre>
 <pre><code>##  [1] Female Female Male   Female Female Female Female Female Female Female
 ## [11] Male   Female Female Female Female Female Female Female Male   Female
 ## Levels: Male Female</code></pre>
-<pre class="r"><code> FathersOccupation &lt;- factor(
+<pre class="r"><code> FathersOccupationR &lt;- factor(
    F_Occupation,
   levels = c(1,2,3),
   labels = c(&quot;Farmer&quot;, &quot;Driver&quot;, &quot;Others&quot;)
   )
-FathersOccupation</code></pre>
+FathersOccupationR</code></pre>
 <pre><code>##  [1] Farmer Others Others Others Farmer Driver Others Farmer Farmer Farmer
 ## [11] Others Driver Farmer Others Others Farmer Others Farmer Driver Farmer
 ## Levels: Farmer Driver Others</code></pre>
-<pre class="r"><code>TypesOfHouses &lt;- factor(
+<pre class="r"><code>TypesOfHousesR &lt;- factor(
   Types_of_houses,
   levels = c(1,2,3),
   labels = c(&quot;wood&quot;, &quot;Semi-Concrete&quot;, &quot;Concrete&quot;)
   )
-TypesOfHouses</code></pre>
+TypesOfHousesR</code></pre>
 <pre><code>##  [1] wood          Semi-Concrete Concrete      wood          wood         
 ##  [6] Concrete      Concrete      wood          Semi-Concrete Concrete     
 ## [11] Semi-Concrete Concrete      Semi-Concrete Semi-Concrete Concrete     
@@ -509,8 +509,7 @@ TypesOfHouses</code></pre>
 mean(Respondents)</code></pre>
 <pre><code>## [1] 10.5</code></pre>
 <pre class="r"><code>mean(Sex)</code></pre>
-<pre><code>## Warning in mean.default(Sex): argument is not numeric or logical: returning NA</code></pre>
-<pre><code>## [1] NA</code></pre>
+<pre><code>## [1] 1.85</code></pre>
 <pre class="r"><code>mean(F_Occupation)</code></pre>
 <pre><code>## [1] 1.95</code></pre>
 <pre class="r"><code>mean(Persons_at_Home)</code></pre>
@@ -530,15 +529,29 @@ survey[1:5,]</code></pre>
 ## 5          1   2                 1             5                2             1</code></pre>
 <pre class="r"><code>#f: Select the variable types of houses then store the vector that results as types_houses
 
- types_houses &lt;- class(survey$TypesOfHouses)
+types_houses &lt;- class(survey$TypesOfHouses)
 types_houses</code></pre>
 <pre><code>## [1] &quot;numeric&quot;</code></pre>
 <pre class="r"><code>#g. Select only all Males respondent that their father occupation was farmer.
-subset(survey, Sex == &quot;Male&quot;)</code></pre>
+subset(survey, SexR == &quot;Male&quot; &amp; FathersOccupationR == &quot;Farmer&quot; )</code></pre>
 <pre><code>## [1] Respondent        Sex               FathersOccupation PersonsAtHome    
 ## [5] SiblingsAtSchool  TypesOfHouses    
 ## &lt;0 rows&gt; (or 0-length row.names)</code></pre>
-<pre class="r"><code>#h. Select only all females respondent that have greater than or equal to 5 number of siblings attending school.</code></pre>
+<pre class="r"><code>#h. Select only all females respondent that have greater than or equal to 5 number of siblings attending school.
+
+subset(survey,SexR == &quot;Female&quot; &amp; SiblingsAtSchool &gt;= 5)</code></pre>
+<pre><code>##    Respondent Sex FathersOccupation PersonsAtHome SiblingsAtSchool
+## 1           1   2                 1             5                6
+## 7           3   2                 3             6                5
+## 13          1   2                 1             4                5
+## 14          3   2                 3             7                5
+## 18          1   2                 1            11                5
+##    TypesOfHouses
+## 1              1
+## 7              3
+## 13             2
+## 14             2
+## 18             3</code></pre>
 <p>Question #2: Before running data.frame(), you were asked to check
 that all six vectors had the same length. Why is this check necessary
 specifically for survey data like this, where every column represents an
@@ -559,11 +572,33 @@ raw numeric code rather than the word “Male”.</p>
 misinterpret this output?</p>
 <p>What problem does this illustrate about working with coded data
 before it has been labeled?</p>
+<pre class="r"><code>subset(survey, Sex== 1)</code></pre>
+<pre><code>##    Respondent Sex FathersOccupation PersonsAtHome SiblingsAtSchool
+## 3           3   1                 3             3                4
+## 11          3   1                 3             7                3
+## 19          2   1                 2             7                3
+##    TypesOfHouses
+## 3              3
+## 11             2
+## 19             3</code></pre>
+<ul>
+<li>it becomes ambigious and up to numbers , rations, decimals and
+percentages to be exact</li>
+</ul>
 <p>Question #5: Out of 20 respondents, how many are Male (Sex == 1)?
 Compute this using nrow() on your filtered result from subset-logical or
 sum(survey$Sex == 1). Does this small sample size change how confident
 you would be generalizing any pattern you find in this dataset to a
-larger population? Explain your reasoning. (Your answer here)</p>
+larger population? Explain your reasoning.</p>
+<pre class="r"><code>nrow(subset(survey, Sex== 1))</code></pre>
+<pre><code>## [1] 3</code></pre>
+<ul>
+<li>[1] 3</li>
+<li>I’d be as confident only as I would be to any estimate, with thaaat
+confidence also reliant on how much more context I am provided and the
+similarities of much more indicaators to the demographics it claims to
+represent</li>
+</ul>
 <p>Question #6:</p>
 <p>Run summary(). Every column shows numeric summary statistics (min,
 mean, max, etc.) – including Sex and TypesOfHouses, which are really
@@ -571,12 +606,27 @@ categories, not quantities.</p>
 <p>Explain why R doesn’t know, by itself, that these columns are
 categorical, and what this tells you about the difference between how
 data is stored versus what it means.</p>
-<p>(Your answer here)</p>
+<pre class="r"><code>summary(survey$Sex)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    1.00    2.00    2.00    1.85    2.00    2.00</code></pre>
+<pre class="r"><code>summary(survey$TypesOfHouses)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##     1.0     2.0     2.5     2.3     3.0     3.0</code></pre>
+<ul>
+<li>meaning is conceptualized by the person, and a tool will always be
+good as it is conceptualized in its invention. A screw looks like a nail
+and can be hammered like a nail, but its reusability and other benefits
+as a screw and for it to hold an object in place is only set into
+actuality if utilized with the right concept in mind and in
+practice</li>
+</ul>
 <p>Question #7:</p>
 <p>Compare the mean of PersonsAtHome to the mean of Sex in your summary
 output. Which of these two means is actually meaningful to report to
 someone, and which one is not? Justify your answer.</p>
-<p>(Your answer here)</p>
+<p>-the type of Houses , because it provides data and a label like a
+liquid in a bottle with words in it. You know what it is exactly, and
+you know what the numbers mean</p>
 
 
 

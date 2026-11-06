@@ -79,26 +79,26 @@ dim (survey)
 
 ```{r}
 #c. Create factors for Sex, Father's Occupation and Types of Houses
- Sex <- factor(
+ SexR <- factor(
    Sex, 
    levels = c(1, 2),
    labels = c("Male","Female")
  )
-Sex
+SexR
 
- FathersOccupation <- factor(
+ FathersOccupationR <- factor(
    F_Occupation,
   levels = c(1,2,3),
   labels = c("Farmer", "Driver", "Others")
   )
-FathersOccupation
+FathersOccupationR
 
-TypesOfHouses <- factor(
+TypesOfHousesR <- factor(
   Types_of_houses,
   levels = c(1,2,3),
   labels = c("wood", "Semi-Concrete", "Concrete")
   )
-TypesOfHouses
+TypesOfHousesR
 
 ```
 
@@ -122,17 +122,19 @@ survey[1:5,]
 ```{r}
 #f: Select the variable types of houses then store the vector that results as types_houses
 
- types_houses <- class(survey$TypesOfHouses)
+types_houses <- class(survey$TypesOfHouses)
 types_houses
 ```
 
 ```{r}
 #g. Select only all Males respondent that their father occupation was farmer.
-subset(survey, Sex == "Male")
+subset(survey, SexR == "Male" & FathersOccupationR == "Farmer" )
 ```
 
 ```{r}
 #h. Select only all females respondent that have greater than or equal to 5 number of siblings attending school.
+
+subset(survey,SexR == "Female" & SiblingsAtSchool >= 5)
 ```
 
 Question #2: 
@@ -154,11 +156,20 @@ Looking at the result, how could someone unfamiliar with the legend misinterpret
 
 What problem does this illustrate about working with coded data before it has been labeled?
 
+```{r}
+subset(survey, Sex== 1)
+```
+- it becomes ambigious and up to numbers , rations, decimals and percentages to be exact
+
 
 
 Question #5:
 Out of 20 respondents, how many are Male (Sex == 1)? Compute this using nrow() on your filtered result from subset-logical or sum(survey$Sex == 1). Does this small sample size change how confident you would be generalizing any pattern you find in this dataset to a larger population? Explain your reasoning.
-(Your answer here)
+```{r}
+nrow(subset(survey, Sex== 1))
+```
+   - [1] 3
+   - I'd be as confident only as I would be to any estimate, with thaaat confidence also reliant on how much more context I am provided and the similarities of much more indicaators to the demographics it claims to represent
 
 
 
@@ -168,12 +179,16 @@ Run summary(). Every column shows numeric summary statistics (min, mean, max, et
 
 Explain why R doesn’t know, by itself, that these columns are categorical, and what this tells you about the difference between how data is stored versus what it means.
 
-(Your answer here)
 
+```{r}
+summary(survey$Sex)
+summary(survey$TypesOfHouses)
+```
+  - meaning is conceptualized by the person, and a tool will always be good as it is conceptualized in its invention. A screw looks like a nail and can be hammered like a nail, but its reusability and other benefits as a screw and for it to hold an object in place is only set into actuality if utilized with the right concept in mind and in practice
 
 
 Question #7:
 
 Compare the mean of PersonsAtHome to the mean of Sex in your summary output. Which of these two means is actually meaningful to report to someone, and which one is not? Justify your answer.
 
-(Your answer here)
+   -the type of Houses , because it provides data and a label like a liquid in a bottle with words in it. You know what it is exactly, and you know what the numbers mean
