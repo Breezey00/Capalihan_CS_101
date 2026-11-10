@@ -29,93 +29,109 @@ write.csv(shoesize, "shoesize.csv", row.names = FALSE)
 ```{r}
 #b. Then try to import the saved csv into the R environment. Display the last 5 rows.
 
-shoe_csv <- read.csv("shoesize.csv")
-tail(shoe_csv, 5)
+shoes <- read.csv("shoesize.csv")
+tail(shoes, 5)
 
 ```
 
 ```{r}
 #c. Describe the data by showing the structures and its content.
 
-str(shoe_csv)
+str(shoes)
 ```
     - it's a data frame with 28 instances of a class with 3 variables: shoe_size, height and gender
     
 ```{r}
 #d. Inspect its dimensions. How many rows? How about columns?
-dim(shoe_csv)
+dim(shoes)
 ```
   -28 rows and 3 columns
   
 ```{r}
 #e. Inspect by using summary(). What is the difference of the summary() from str() function?
-  summary(shoe_csv)
+  summary(shoes)
 ```
   - summary talks about the nature of the data sets, while str() describes the lengths of the rows and columns of the d.f
 
 ```{r}
 #f. Create a subset by males and females with their corresponding shoe size and height. What its result? Show the R scripts.
-subset( )
+subset(shoes, gender == "M")
+subset(shoes, gender == "F")
 
 ```
 
 ```{r}
 #g. Find the mean of shoe size and height of the respondents. Write the R scripts and its result.
-(Your answer here)
+mean(shoes$shoe_size)
+mean(shoes$height)
 ```
 
 ```{r}
 #h. Is there a relationship between shoe size and height? Why?
-(Your answer here)
+
+ #-from the data set alone, not much. But when you divide the mean of the shoe_size with the mean of the height, you confirm that the proportion of feet to total height does average to around 14-15%
+
+9.410714 /68.57143 
 ```
 
 Question #2:
 
 A nominal variable is a categorical variable without an implied order. This means that it is impossible to say that ‘one is worth more than the other’.
 Create factors for the gender.
-(Your answer here)
+```{r}
+factor(shoes$gender)
+```
+  -Levels: F M
 
 
 
 Question #3:
 
 When R Markdown knits a document, it uses the folder containing the .Rmd file as the working directory — NOT whatever folder your R console happened to be in beforehand. Why do you think this design choice makes an .Rmd file’s imports more reliable and reproducible when shared with someone else?
-(Your answer here)
-
-
+  - It makes it so really easier aaand faster to access and find compared to for example xampp or screenshots.
 
 Question #4:
 
 Run str(shoes) and note the type R assigned to the Gender column. Is it what you expected? Explain what could go wrong in later analysis if a column you expected to be numeric (like ShoeSize) was accidentally imported as text (character) instead — for example, because of a stray non-numeric value in the original file.
-(Your answer here)
-
+```{r}
+str(shoes)
+```
+  - It was what I expected. But if such mistake was to happen as a numeric set appears as a character-set, that's when the tool provides a response that is unexpected - perhaps an error. And if it does return a processed value, it would likely be inaccurate and if I'm not very familiar with the extent of the data-set, the the real world reported findings would also be incorrect and cause disruptions.
 
 
 Question #5:
 
 Why is it good practice to check BOTH head(shoes) and tail(shoes) after importing a file, instead of just head()? What kind of import problem would head() alone fail to catch?
-(Your answer here)
-
-
+ - the patterns it may have start and end and the extent of the entire data set,  
 
 Question #6:
 
 Compute for the correlation
+```{r}
 # TODO: Use cor(shoes$ShoeSize, shoes$Height) to compute the correlation
 # between shoe size and height across ALL observations
-(Your answer here)
 
+cor(shoes$shoe_size, shoes$height)
 
+```
 
+```{r}
 # TODO: Return all rows where ShoeSize is greater than or equal to 11,
 # regardless of gender
-(Your answer here)
+subset(shoes, shoe_size >= 11)
 
-
+```
 
 Question #7:
 
 Compare the mean height and mean shoe size between the female and male subsets. Describe the pattern you see.
 Does this dataset support the idea that shoe size and height are related WITHIN each gender group, or could gender itself be an important factor you’d need to account for separately when studying that relationship?
-(Your answer here)
 
+
+```{r}
+mean(subset(shoes$height, shoes$gender == "M")) / mean(subset(shoes$shoe_size, shoes$gender == "M")) 
+
+mean(subset(shoes$height, shoes$gender == "F")) / mean(subset(shoes$shoe_size, shoes$gender == "F")) 
+```
+
+  - withthe data, I infer that maales aaand females tend to average differently in terms of their height's proportion to their foot size
