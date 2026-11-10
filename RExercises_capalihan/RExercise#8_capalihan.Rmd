@@ -1,0 +1,269 @@
+---
+title: "R Lab: Basic Operations - sort(), rank(), and order()"
+author: "Coenn Johan Capalihan"
+date: "2026-11-10"
+output: html_document
+---
+Introduction
+
+    Asort(), order(), and rank() all deal with putting data “in order,” but they each answer a different question.
+
+    sort() gives you the values, arranged. order() gives you the positions needed to arrange them. rank() gives you each value’s standing relative to the others.
+
+    Use code chunks (Ctrl + Alt + I) to run the code.
+
+    Each part ends with Question # — answer these in full sentences based on what you observe when you run the code, not just what you expect.
+
+Note: You can add current date by using the date: "2026-09-25" in YAML.
+R Date
+
+
+
+Reminder: Do not use any AI tool. Answer it with your own words.
+Instructions
+
+    In RStudio: File → New File → R Markdown… → Document, output HTML.
+    Save it as RExercise#7_lastname.Rmd in a local folder RExercises_lastname that was previously saved before.
+    Replace the content with the structure in the provided RExercise#8.Rmd starter file. Fill in your name and date in the YAML header.
+    Knit and Submit to GitHub
+
+Same GitHub Repository will be utilized
+Submission
+
+    Confirm both RExercise#8_lastname.Rmd and RExercise#8_lastname.html are visible on GitHub.
+
+Part A — Creating Data Frames
+
+Note: Do not forget the codes before answering each questions. Codes must also be visible.
+
+Question #1
+
+
+```{r}
+#    a. Create a vector.
+scores <- c(78,92,85,92,67,88,74)
+names(scores) <- c("Ana", "Ben", "Cid", "Dex", "Eli", "Fay", "Gio")
+scores
+```
+```{r}
+#    b. Sort the scores in ascending order and descending order. What is the output?
+sort(scores)
+sort(scores, decreasing = TRUE)
+```
+    
+
+```{r}
+#    c. Print your sorted result from sort-ascending. Check whether the # names (“Ana”, “Ben”, …) stayed attached to their correct values.
+print(sort(scores))
+```
+  -the names stayed with the scores in the list
+  
+```{r}
+#   d.Create another vectors:
+
+subjects <- c("Science", "Math", "English", "Filipino", "PE") 
+incomplete <- c(85, NA, 90, 70, NA, 95)
+```
+
+```{r}
+#   e.Sort subjects alphabetically using sort()
+sort(subjects)
+```
+
+
+```{r}
+# TODO: Now sort it again using na.last = TRUE so the NAs appear at the end  
+
+#    f.Sort incomplete using sort(). Observe what happens to the NA
+
+# values by default.
+  sort(incomplete)
+
+#TODO: Now sort it again using na.last = TRUE so the NAs appear at the end  
+  sort(incomplete, na.last =TRUE)
+
+```
+  -na is not listed with the result by default and need a command actually mentioning them just to appear
+  
+  
+
+Question #2:
+
+    When you sorted scores, did the names stay correctly attached to their original values?
+    Explain why this matters: if you were sorting exam scores to find the top performer, what would go wrong if the names did NOT follow their values?
+
+  - the names stayed with their attached values
+  -it would really mess up recording and make it innacurate information if the grades did not represent who earned them
+
+
+Question #3:
+
+    By default, sort() silently removes NA values instead of showing them or throwing an error.
+    Why might this default behavior be dangerous if you were reporting “the lowest score” in a dataset with missing data, without first checking for NA values?.
+
+  -it is dangerous behaviour as it doesn't show any 0 values unless stated, this means that it only works assuming that 0 values are already inputted at least once. If 0 was never written then the returned data would be imprecise to the truth
+
+
+Question #4:
+
+    Use order(scores) and print the result. Compare this output to the sort(scores) output. What is the difference?
+```{r}
+order(scores)
+sort(scores)
+```
+  - [1] 5 7 1 3 6 2 4
+  - Eli Gio Ana Cid Fay Ben Dex 
+     67  74  78  85  88  92  92 
+     
+  - order returns their indexes in the vector by which order they are from the sequence they are inputted
+  -sort returns the values in that vector from least to greatest
+     
+
+```{r}
+#    a. Use the result of order(scores) to index scores itself: # Compare this to sort(scores) – they should produce the same values.
+
+scores[order(scores)]
+sort(scores)
+```
+
+  Do they have the same values? Explain briefly.
+  - yes because the order of which order() orders the values in a vector is the order of which they were initially sequenced, and thus has the output print them according to that index sequencing. While sort sorts the vector values by their values in ascending order.
+  - I realize here that the the indexes assigned to the numeric vectors is dependent on their value relative to the rest.
+
+
+Question #5:
+
+    Create a dataframe from these vectors name = c("Ana", "Ben", "Cid", "Dex", "Eli", "Fay", "Gio") score = c(78, 92, 85, 92, 67, 88, 74) section = c("A", "B", "A", "B", "A", "B", "A")
+
+    What is the output?
+```{r}
+
+students <- data.frame(
+name = c("Ana", "Ben", "Cid", "Dex", "Eli", "Fay", "Gio"),
+score = c(78, 92, 85, 92, 67, 88, 74),
+section = c("A", "B", "A", "B", "A", "B", "A")
+)
+students
+
+```
+  name  _  score  _  section
+  <chr>    <dbl>     <chr>
+	Ana	      78	      A		
+  Ben	      92	      B		
+  Cid	      85	      A		
+  Dex	      92	      B		
+  Eli	      67	      A		
+  Fay	      88	      B		
+  Gio	      74	      A
+
+
+	
+
+
+		
+
+```{r}
+#    a. Reorder the ENTIRE students data frame by score using students[order(students$score), ]
+
+    #What is the output?
+
+ students[order(students$score), ]
+```
+	
+   name  _ score _ section
+   <chr> _ <dbl> _ <chr>
+	
+5 	Eli	    67  	  A	
+7	  Gio     74    	A	
+1	  Ana	    78	    A	
+3	  Cid	    85	    A	
+6	  Fay	    88    	B	
+2	  Ben 	  92	    B	
+4	  Dex	    92	    B
+
+
+```{r}
+#    b. Reorder students by score in DESCENDING order.
+
+  students[order(students$score, decreasing = TRUE),]
+```
+
+
+Question #6:
+
+sort(scores) and scores[order(scores)] produce the same final values, but they work completely differently under the hood.
+
+    In your own words, explain what order(scores) actually returns (look at the raw numbers it gives you), and why that output is useless on its own unless you use it to index something.
+
+  - order scores by default return the order of the numbers according to their original input. The function is only really useful on its own when you want to check the sequence of when each value was inputted, but on preset data-sets it really tells nothing much of else unless you intentionally assign it to a sequence.
+
+
+Question #7:
+
+   # Explain why sort() alone could NOT have been used to reorder the whole students data frame by score (try to imagine running sort(students) and think about what “sorting a table” would even mean).
+    
+    - the entire data frame has multiple vectors of different data types and df is kind of its own data type. Sort wouldn't know on what sorting it would "appropriately" sort the data set.End point: sort kinda doesn't return indexes but rather the values of those indexes in an increasing or decreasing order.
+
+   # Why is order() the correct tool whenever you need to keep multiple related columns lined up with each other?
+  - because it returns indexes which can be better used at calling the actual values through R functions
+
+Question #8:
+```{r}
+# TODO: Use rank(scores) and print the result. 
+# Print scores, then rank(scores), side by side (e.g., using
+# cbind(scores, rank(scores))) so you can see which score got which rank
+
+cbind (scores, rank(scores))
+```
+ a. Ranking the output for Ben and Dex.
+# TODO: Look at the rank() output for Ben and Dex. 
+
+    What rank did each of them receive?
+
+    (6.5 both of them)
+
+
+    Ben and Dex both scored 92, the highest score in the class, but under the default rank() they did NOT both simply get rank “1” or rank “7” as a whole number. Explain exactly what value they received by default and why R computes it that way for tied values.
+
+  - because they share the range after 6.0 up to 7.0. So they equally divide the digit's decimals between themselves.
+
+
+Question #8:
+
+   
+```{r}
+ #Create a dataframe
+sales <- data.frame( 
+  employee = c("Rey", "Sam", "Tin", "Uma", "Val"),
+  units_sold = c(120, 145, 145, 98, 130)
+                 )
+```
+    
+```{r}
+#    Add a column sales$rank that ranks employees by units_sold, with the TOP seller receiving rank 1.
+rank <-rank(-sales$units_sold)
+sales <- cbind(sales, rank)
+sales
+```
+
+```{r}
+#    Reorder the entire sales data frame using order() so it is displayed from HIGHEST units_sold to LOWEST.
+
+sales <- sales[order(sales$units_sold, decreasing = TRUE),]
+sales
+```
+
+
+Question #9:
+
+    In this challenge, you used rank() to determine standing and order() to determine display order.
+    Could you have used order() alone to solve the entire problem (both awarding ranks AND reordering the table)?
+    
+   - yes, with reordering through sales[order(sales$units_sold, decreasing = TRUE),]
+   but not with giving considerate ranking or ranking with meaning
+
+    
+    Explain what order() is missing that rank() provides, using your own words rather than repeating the definitions
+
+  - rank() specifies when multiple values have equal ranking "computation", by dividing 1 among the total amount indexes that share a value. The decimal you get from that you add to the previous rank they exceed or trail behind.
+
